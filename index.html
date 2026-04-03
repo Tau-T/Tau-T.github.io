@@ -1,10 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>HKK menu</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKK Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #FFF8F0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(150, 80, 40, 0.12);
+            padding: 52px 48px;
+            text-align: center;
+            max-width: 420px;
+            width: 100%;
+        }
+
+        .divider {
+            width: 48px;
+            height: 3px;
+            background-color: #C0522A;
+            border-radius: 2px;
+            margin: 0 auto 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #3B1A0A;
+            letter-spacing: 0.12em;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            color: #8A6650;
+            font-weight: 600;
+            margin-bottom: 36px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: #C0522A;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 14px 36px;
+            border-radius: 50px;
+            transition: background-color 0.2s ease, transform 0.15s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #A04020;
+            transform: translateY(-2px);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .footer {
+            margin-top: 32px;
+            font-size: 0.78rem;
+            color: #BCA898;
+        }
+    </style>
 </head>
 <body>
-    <p style="font-size: 20px;">Download the menu here!</p>
-    <a href="HKK-menu-113025.pdf" style="font-size: 20px;" >Download My PDF</a>
+    <div class="card">
+        <h1>Hong Kong Kitchen</h1>
+        <div class="divider"></div>
+        <p class="tagline">View our latest menu</p>
+        <a class="download-btn" href="HKK-menu-113025.pdf" download>Download Menu (PDF)</a>
+        <p class="footer">Opens as a PDF download</p>
+    </div>
 </body>
 </html>
