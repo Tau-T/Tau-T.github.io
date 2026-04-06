@@ -14,18 +14,58 @@
 
         body {
             font-family: 'Nunito', sans-serif;
-            background-color: #FFF8F0;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 24px;
+            overflow: hidden;
         }
 
+        /* ── Background slideshow ── */
+        #slideshow {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            background-size: 130%;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+            animation: pan 8s ease-in-out forwards;
+        }
+
+        @keyframes pan {
+            0%   { background-size: 130%; background-position: 30% 40%; }
+            100% { background-size: 140%; background-position: 60% 55%; }
+        }
+
+        /* 50% transparent white overlay */
+        #overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 248, 240, 0.5);
+            z-index: 1;
+        }
+
+        /* ── Card ── */
         .card {
-            background: #ffffff;
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             border-radius: 20px;
-            box-shadow: 0 4px 24px rgba(150, 80, 40, 0.12);
+            box-shadow: 0 4px 32px rgba(150, 80, 40, 0.18);
             padding: 52px 48px;
             text-align: center;
             max-width: 420px;
@@ -86,6 +126,10 @@
     </style>
 </head>
 <body>
+
+    <div id="slideshow"></div>
+    <div id="overlay"></div>
+
     <div class="card">
         <h1>Hong Kong Kitchen</h1>
         <div class="divider"></div>
@@ -93,5 +137,59 @@
         <a class="download-btn" href="HKK-menu-113025.pdf" download>Download Menu (PDF)</a>
         <p class="footer">Opens as a PDF download</p>
     </div>
+
+    <script>
+        const images = [
+            'notion_photos/image.jpeg',
+            'notion_photos/image 1.jpeg',
+            'notion_photos/image 2.jpeg',
+            'notion_photos/image 3.jpeg',
+            'notion_photos/image 4.jpeg',
+            'notion_photos/image 5.jpeg',
+            'notion_photos/image 6.jpeg',
+            'notion_photos/image 7.jpeg',
+            'notion_photos/image 8.jpeg',
+            'notion_photos/image 9.jpeg',
+            'notion_photos/image 10.jpeg',
+            'notion_photos/image 11.jpeg',
+            'notion_photos/image 12.jpeg',
+            'notion_photos/image 13.jpeg',
+            'notion_photos/image 14.jpeg',
+            'notion_photos/image 15.jpeg',
+            'notion_photos/image 16.jpeg',
+            'notion_photos/image 17.jpeg',
+            'notion_photos/image 18.jpeg',
+            'notion_photos/image 19.jpeg',
+        ];
+
+        const container = document.getElementById('slideshow');
+        let current = 0;
+
+        // Pre-create two slide elements for cross-fading
+        const slides = [document.createElement('div'), document.createElement('div')];
+        slides.forEach(s => { s.className = 'slide'; container.appendChild(s); });
+
+        let activeIdx = 0;
+
+        function showSlide(imgIndex) {
+            const next = 1 - activeIdx;
+            slides[next].style.backgroundImage = `url('${images[imgIndex]}')`;
+
+            // Force reflow so animation restarts
+            slides[next].classList.remove('active');
+            void slides[next].offsetWidth;
+            slides[next].classList.add('active');
+
+            slides[activeIdx].classList.remove('active');
+            activeIdx = next;
+        }
+
+        showSlide(current);
+
+        setInterval(() => {
+            current = (current + 1) % images.length;
+            showSlide(current);
+        }, 6000);
+    </script>
 </body>
 </html>
